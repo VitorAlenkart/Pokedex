@@ -1,6 +1,6 @@
 <template>
     <div id="divPrinc">
-        <div class="card">
+        <div class="card " id="card">
             <div class="card-image ">
               <figure class="image is-centered is-120x120 ">
                 <img :src="sprite">
@@ -96,15 +96,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 
 #divPrinc {
-    float: left;
-    margin-left: 2%;
-    height: auto;
-    width: 230px;
+
     margin-top: 2%;
+    margin: 0 auto;
    
+}
+
+#card {
+
+  height: auto;
+  width: 250px;
+  margin-left: 30px;
+  margin-top: 30px;
+  float: left;
+
 }
 
 #p1 {
@@ -113,10 +121,6 @@ export default {
 #p2 {
   display: inline;
 
-}
-
-#divPrinc {
-  margin-left: 5%;
 }
 
 </style>
