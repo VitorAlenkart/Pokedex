@@ -100,9 +100,9 @@ export default {
 
 .card {
     float: left;
-    margin-left: 8%;
+    margin-left: 2%;
     height: auto;
-    width: 370px;
+    width: 230px;
     margin-top: 2%;
    
 }
