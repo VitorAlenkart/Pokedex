@@ -98,7 +98,7 @@ export default {
 
 <style scoped>
 
-.card {
+#divPrinc {
     float: left;
     margin-left: 2%;
     height: auto;
