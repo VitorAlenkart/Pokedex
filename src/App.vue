@@ -1,11 +1,12 @@
 <template>
-
   <div id="app">
-    <NavBar/> <br>
-
-    <div class="alert alert-primary" role="alert">
-      Um simples alerta primary com <a href="#" class="alert-link">um link de exemplo</a>. Clique nele, se quiser.
-    </div>
+    <div class="jumbotron">
+      <h1 class="display-4">Olá, mundo!</h1>
+      <p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</p>
+      <hr class="my-4">
+      <p>Ele usa classes utilitárias para tipografia e espaçamento de conteúdo, dentro do maior container.</p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
+    </div><br>
     
     <section class="hero is-link is-small">
       <div class="hero-body">
@@ -24,13 +25,12 @@
     <Pokemon :index="index +1" :pokemon="(capitalize(poke.name))" :url="poke.url" />
     </div>
   </div>
-
 </template>
 
 <script>
 import axios from 'axios';
 import Pokemon from './components/DetailsPokemon.vue'
-import NavBar from './components/NavBar'
+
 
 export default {
   name: 'App',
@@ -43,8 +43,7 @@ export default {
     }
   },
   components: {
-    Pokemon,
-    NavBar
+    Pokemon
   },
   created () {
     axios.get('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0').then(d => {
@@ -84,16 +83,20 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  
+}
+
+@font-face {
+  font-family: 'Pokemon';
+  src: url('../font/Pokemon\ Solid.ttf') format('truetype');
 }
 
 #btmbuscar {
   float: left;
+}
+
+.jumbotron{
+  font-family: Pokemon;
 }
 
 #inputBuscar {
