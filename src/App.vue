@@ -3,6 +3,10 @@
   <div id="app">
     <NavBar/> <br>
 
+    <div class="alert alert-primary" role="alert">
+      Um simples alerta primary com <a href="#" class="alert-link">um link de exemplo</a>. Clique nele, se quiser.
+    </div>
+    
     <section class="hero is-link is-small">
       <div class="hero-body">
         <p class="title">

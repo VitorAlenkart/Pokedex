@@ -1,35 +1,25 @@
 <template>
-    <div id="divPrinc">
-        <div class="card " id="card">
-            <div class="card-image ">
-              <figure class="image is-centered is-120x120 ">
-                <img :src="sprite">
-              
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <h2>{{index}}</h2>
-                </div>
-                <div class="media-content">
+    
+  <div class="card" style="width: 18rem;">
 
-                  <p class="title is-4">{{ pokemon }}</p>
-                  
-                  <p class="subtitle is-6" id="p1">{{capitalize(this.type.type1) + '   '}}</p>
-                  <p class="subtitle is-6" id="p2" >{{capitalize(this.type.type2)}}</p>
-      
-                </div>
-                
-              </div>
+    <img class="card-img-top" :src="sprite" alt="Imagem de capa do card">
+    <div class="card-body">
+
+      <h5 class="card-title">{{ pokemon }}</h5>
+
+      <div id="cardtext" class="card-body">
+        <h7 class="card-text " v-if="type.type2 !== false">{{capitalize(type.type1)+ ' e ' +capitalize(type.type2)}}</h7>
+        <h7 class="card-text " v-else>{{capitalize(this.type.type1)}}</h7>            
+      </div>
           
-              <div class="content">
-                <button class="button is-primary is-normal" v-on:click="changeSprite">Trocar lado!</button>
-              </div>
-            </div>
-          </div>
-        <input v-bind:hidden="url">
+      <a href="#" class="btn btn-primary" v-on:click="changeSprite">Trocar de Lado</a>
+
     </div>
+  </div>
+
+        
+  <input v-bind:hidden="url">
+    
 </template>
 
 <script>
@@ -87,7 +77,8 @@ export default {
             }
           }else{
             this.type = {
-              type1: d.data.types[0].type.name
+              type1: d.data.types[0].type.name,
+              type2: false
             };
           }
 
@@ -105,15 +96,7 @@ export default {
    
 }
 
-#card {
 
-  height: auto;
-  width: 250px;
-  margin-left: 30px;
-  margin-top: 30px;
-  float: left;
-
-}
 
 #p1 {
   display: inline;
@@ -122,5 +105,6 @@ export default {
   display: inline;
 
 }
+
 
 </style>
