@@ -5,14 +5,14 @@
     <img class="card-img-top" :src="sprite" alt="Imagem de capa do card">
     <div class="card-body">
 
-      <h5 class="card-title">{{ pokemon }}</h5>
+      <h5 class="card-title text-center">{{ pokemon }}</h5>
 
-      <div id="cardtext" class="card-body">
+      <div id="cardtext" class="card-body text-center">
         <h7 class="card-text " v-if="type.type2 !== false">{{capitalize(type.type1)+ ' e ' +capitalize(type.type2)}}</h7>
         <h7 class="card-text " v-else>{{capitalize(this.type.type1)}}</h7>            
       </div>
           
-      <a href="#" class="btn btn-primary" v-on:click="changeSprite">Trocar de Lado</a>
+      <a href="#" class="btn btn-primary" id="btn"  v-on:click="changeSprite">Trocar de Lado</a>
 
     </div>
   </div>
@@ -89,14 +89,15 @@ export default {
 
 <style >
 
-#divPrinc {
+.card {
 
-    margin-top: 2%;
-    margin: 0 auto;
+  margin-left: 4%;
    
 }
 
-
+#btn {
+ margin-left: 25 %; 
+}
 
 #p1 {
   display: inline;

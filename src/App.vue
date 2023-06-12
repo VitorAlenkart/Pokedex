@@ -1,27 +1,20 @@
 <template>
   <div id="app">
-    <div class="jumbotron">
-      <h1 class="display-4">Olá, mundo!</h1>
-      <p class="lead">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</p>
-      <hr class="my-4">
-      <p>Ele usa classes utilitárias para tipografia e espaçamento de conteúdo, dentro do maior container.</p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Leia mais</a>
+    <div class="jumbotron" style="background-color: rgba(255,0,0,0.1); width:100%; ">
+      <hr>
+      <h1 class="display-4 " style="margin-left: 10px;">Olá, mundo!</h1> <br>
+      <h2 class="lead" style="margin-left: 20px;">Este é um simples componente jumbotron para chamar mais atenção a um determinado conteúdo ou informação.</h2>
+      <br class="my-4">
+      <h2 class="lead" style="margin-left: 20px;">Ele usa classes utilitárias para tipografia e espaçamento de conteúdo, dentro do maior container.</h2>
+      <br class="my-4">
+      <a class="btn btn-primary btn-lg" style="margin-left: 20px;" href="https://github.com/VitorAlenkart" role="button">Leia mais</a>
+      <hr>
     </div><br>
-    
-    <section class="hero is-link is-small">
-      <div class="hero-body">
-        <p class="title">
-          Pokedex
-        </p>
-        <p class="subtitle">
-          Projeto feito por @VitorAlenkart
-        </p>
-      </div>
-    </section><br>
 
-    <input class="input is-rounded" id="inputBuscar" type="text" placeholder="Buscar pokemon..." v-model="busca"> <button v-on:click="filtrarPokemons" class="button is-primary is-rounded" id="btnBuscar">Buscar</button>
+    <input class="input is-rounded" id="inputBuscar" type="text" placeholder="Buscar pokemon..." v-model="busca"> 
+    <button v-on:click="filtrarPokemons" class="button is-primary is-rounded" id="btnBuscar">Buscar</button>
 
-    <div v-for="(poke,index) in pokemonsFiltrados" :key="poke.name" id="pokemons">
+    <div v-for="(poke,index) in pokemonsFiltrados"  :key="poke.name" id="pokemons">
     <Pokemon :index="index +1" :pokemon="(capitalize(poke.name))" :url="poke.url" />
     </div>
   </div>
@@ -83,24 +76,25 @@ export default {
 
 <style>
 #app {
-  
+  margin-top: 2%;
+
 }
 
 @font-face {
   font-family: 'Pokemon';
-  src: url('../font/Pokemon\ Solid.ttf') format('truetype');
+  src: url('../font/Pokemon\ Hollow.ttf') format('truetype');
 }
 
-#btmbuscar {
-  float: left;
-}
+#pokemons {
+  display: inline-block;
+  margin-left: 3%;
+  margin-top: 3%;
 
-.jumbotron{
-  font-family: Pokemon;
 }
 
 #inputBuscar {
-  max-width: 60%;
+  max-width: 90%;
+  
 }
 
 
