@@ -8,11 +8,11 @@
       <h5 class="card-title text-center">{{ pokemon }}</h5>
 
       <div id="cardtext" class="card-body text-center">
-        <h7 class="card-text " v-if="type.type2 !== false">{{capitalize(type.type1)+ ' e ' +capitalize(type.type2)}}</h7>
-        <h7 class="card-text " v-else>{{capitalize(this.type.type1)}}</h7>            
+        <h6 class="card-text " v-if="type.type2 !== false">{{capitalize(type.type1)+ ' e ' +capitalize(type.type2)}}</h6>
+        <h6 class="card-text " v-else>{{capitalize(this.type.type1)}}</h6>            
       </div>
           
-      <a href="#" class="btn btn-primary" id="btn"  v-on:click="changeSprite">Trocar de Lado</a>
+      <a href="#" class="btn btn-primary" id="btn"  v-on:click.prevent="changeSprite">Trocar de Lado</a>
 
     </div>
   </div>
@@ -31,7 +31,7 @@ export default {
             sprite: '',
             spriteFront: '',
             spriteBack: '',
-            spriteSide: '',
+            spriteSide: 'front',
             type: {
               type1: '',
               type2: '',
@@ -51,12 +51,12 @@ export default {
       },
       changeSprite: function(event) {
         if(event){
-          if(this.spriteSide === true){
-            this.spriteSide = false;
-            this.sprite = this.spriteBack;
-          }else{
+          if(this.spriteSide === "back"){
             this.sprite = this.spriteFront;
-            this.spriteSide = true;
+            this.spriteSide = "front";
+          }else{
+            this.spriteSide = "back";
+            this.sprite = this.spriteBack;
           }
         }
         
@@ -96,16 +96,7 @@ export default {
 }
 
 #btn {
- margin-left: 25 %; 
+ margin-left: 21%; 
 }
-
-#p1 {
-  display: inline;
-}
-#p2 {
-  display: inline;
-
-}
-
 
 </style>

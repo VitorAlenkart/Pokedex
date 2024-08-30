@@ -11,12 +11,15 @@
       <hr>
     </div><br>
 
-    <input class="input is-rounded" id="inputBuscar" type="text" placeholder="Buscar pokemon..." v-model="busca"> 
+    <div class="body">
+    <input v-on:keyup.prevent="filtrarPokemons" class="input is-rounded" id="inputBuscar" type="text" placeholder="Buscar pokemon..." v-model="busca"> 
     <button v-on:click="filtrarPokemons" class="button is-primary is-rounded" id="btnBuscar">Buscar</button>
 
     <div v-for="(poke,index) in pokemonsFiltrados"  :key="poke.name" id="pokemons">
     <Pokemon :index="index +1" :pokemon="(capitalize(poke.name))" :url="poke.url" />
     </div>
+    </div>
+    
   </div>
 </template>
 
@@ -42,7 +45,7 @@ export default {
     axios.get('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0').then(d => {
       
       this.pokemons = (d.data.results);
-      this.pokemonsFiltrados = this.pokemons;
+      this.pokemonsFiltrados = (d.data.results);
     });
     
   },
@@ -51,34 +54,40 @@ export default {
       if (!value) return ''
       return value.charAt(0).toUpperCase() + value.slice(1)
     },
-    filtrarPokemons: function(event){
+    filtrarPokemons: async function(event){
       if(event){
         if(this.busca === '' || this.busca === ' '){
           this.pokemonsFiltrados = this.pokemons;
         }else{
-          this.pokemonsFiltrados = this.pokemons.filter(p => p.name === this.busca || p.name[0].toUpperCase() + p.name.slice(1).toLowerCase() === this.busca);
+          this.pokemonsFiltrados = []
+          let l = this.pokemons.length;
+          let b = this.busca.length
+          for (let i = 0; i < l; i++) {
+            let palavra = ""
+            for (let j = 0; j < b; j++) {
+              palavra += this.pokemons[i].name.at(j)
+            }
+            console.log(palavra)
+            if(palavra == this.busca){
+              this.pokemonsFiltrados.push(this.pokemons[i]);
+            }
+          }
         }
       }
     }
   },
-  computed: {
-    // resultadoFiltrado: function(){
-    //   if(this.busca === '' || this.busca === ' '){
-    //     return this.pokemons
-    //   }else{
-    //     return this.pokemons.filter(p => p.name === this.busca || p.name[0].toUpperCase() + p.name.slice(1).toLowerCase() === this.busca);
-    //   }
-    // }
-  },
+ 
 }
 
 </script>
 
 <style>
-#app {
-  margin-top: 2%;
+.body {
+  margin: 1% 1%;
+  
 
 }
+
 
 @font-face {
   font-family: 'Pokemon';
@@ -87,13 +96,20 @@ export default {
 
 #pokemons {
   display: inline-block;
-  margin-left: 3%;
-  margin-top: 3%;
+  margin: 0 auto;
+  margin-left: 3cm;
+  --bulma-control-radius: 1rem;
+  margin-top: 1cm;
 
 }
 
 #inputBuscar {
-  max-width: 90%;
+  max-width: 85%;
+  
+}
+
+#btnBuscar {
+  margin-left:10px;
   
 }
 
