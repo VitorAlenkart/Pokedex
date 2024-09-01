@@ -1,23 +1,57 @@
 <template>
-    
-  <div class="card" style="width: 18rem;">
 
-    <img class="card-img-top" :src="sprite" alt="Imagem de capa do card">
-    <div class="card-body">
+  <div class="card">
 
-      <h5 class="card-title text-center">{{ pokemon }}</h5>
-
-      <div id="cardtext" class="card-body text-center">
-        <h6 class="card-text " v-if="type.type2 !== false">{{capitalize(type.type1)+ ' e ' +capitalize(type.type2)}}</h6>
-        <h6 class="card-text " v-else>{{capitalize(this.type.type1)}}</h6>            
+    <div class="media">
+        <div class="media-left">
+          <figure class="image">
+            <div class="oneType" v-if="type[1] !== undefined">
+              <img
+              :src="type[0].url"
+              alt="Placeholder image"
+              />
+              <img
+              :src="type[1].url"
+              alt="Placeholder image"
+              />
+            </div>
+            <div class="twoTypes" v-else-if="type[0] !== undefined">
+              <img
+              :src="type[0].url"
+              alt="Placeholder image"
+              />
+            </div>
+            
+          </figure>
+        </div>
+        
       </div>
-          
-      <a href="#" class="btn btn-primary" id="btn"  v-on:click.prevent="changeSprite">Trocar de Lado</a>
+    <div class="card-image">
+      <figure class="image">
+        <img
+          :src="sprite"
+          alt="Placeholder image"
+        />
+      </figure>
+    </div>
+    <div class="card-content">
+      
 
+      <div class="content">
+        
+        <h1>{{ pokemon }}</h1>
+        
+        <div id="cardtext" class="card-body text-center">
+        <p class="card-text " v-if="type[1] !== undefined">{{capitalize(type[1].name)+ ' e ' +capitalize(type[0].name)}}</p>
+        <p class="card-text " v-else-if="type[0] !== undefined">{{capitalize(this.type[0].name)}}</p>            
+        </div>
+
+        <br />
+        <a href="#" class="btn btn-primary" id="btn"  v-on:click.prevent="changeSprite">Trocar de Lado</a>
+      </div>
     </div>
   </div>
-
-        
+  
   <input v-bind:hidden="url">
     
 </template>
@@ -31,11 +65,7 @@ export default {
             sprite: '',
             spriteFront: '',
             spriteBack: '',
-            spriteSide: 'front',
-            type: {
-              type1: '',
-              type2: '',
-            }
+            type: []
         }
     },
     props: {
@@ -51,11 +81,9 @@ export default {
       },
       changeSprite: function(event) {
         if(event){
-          if(this.spriteSide === "back"){
+          if(this.sprite === this.spriteBack){
             this.sprite = this.spriteFront;
-            this.spriteSide = "front";
           }else{
-            this.spriteSide = "back";
             this.sprite = this.spriteBack;
           }
         }
@@ -64,24 +92,20 @@ export default {
     },
     created () {
         axios.get(this.url).then(d => {
-          this.spriteSide = true;
-          this.sprite = d.data.sprites.front_default;
+          this.sprite = d.data.sprites.other.showdown.front_default;
 
-          this.spriteFront = d.data.sprites.front_default;
-          this.spriteBack = d.data.sprites.back_default;
+          this.spriteFront = d.data.sprites.other.showdown.front_default;
+          this.spriteBack = d.data.sprites.other.showdown.back_default;
           
-          if(d.data.types[1] != undefined){
-            this.type = {
-              type1: d.data.types[0].type.name,
-              type2: d.data.types[1].type.name
-            }
-          }else{
-            this.type = {
-              type1: d.data.types[0].type.name,
-              type2: false
-            };
+          for(let i = 0; i < d.data.types.length; i++){
+            let urlImg = "";
+            axios.get(d.data.types[i].type.url).then(dUrl => {
+              urlImg = dUrl.data.sprites['generation-vii']['lets-go-pikachu-lets-go-eevee'].name_icon;
+              this.type.push({name: d.data.types[i].type.name,
+                url:urlImg})
+            })
+            
           }
-
         });
     },
 }
@@ -92,11 +116,31 @@ export default {
 .card {
 
   margin-left: 4%;
-   
+  flex: 1 0 21%; /* Ajusta a largura dos elementos */
+  margin: 10px;  /* Ajusta o espaço entre os elementos */
+  box-sizing: border-box;
+}
+
+.media {
+  padding: 30px;
+  display:inline-block;
+  justify-items: center;
+  align-items: center;
+  
 }
 
 #btn {
- margin-left: 21%; 
+  display: flex;
+  justify-items: center;
+  align-self: center;
+  position: relative;
+  bottom: 1%;
+
+}
+.card-image{
+  width: 115px; /* ou qualquer valor que você preferir */
+  height: auto; /* mantém a proporção da imagem */
+  margin: 0 auto;
 }
 
 </style>
